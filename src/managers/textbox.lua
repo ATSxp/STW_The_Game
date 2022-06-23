@@ -44,12 +44,12 @@ function Textbox:draw()
 
         -- setColor(BLACK[1], BLACK[2], BLACK[3], 0.8)
 
-        love.graphics.rectangle(
-            "fill", 
-            0, 0, SCREEN_W, SCREEN_H
-        )
+        -- love.graphics.rectangle(
+        --     "fill", 
+        --     0, 0, SCREEN_W, SCREEN_H
+        -- )
 
-        love.graphics.setColor(1, 1, 1)
+        -- love.graphics.setColor(1, 1, 1)
 
         -- self:drawBox()
         -- self:drawData()

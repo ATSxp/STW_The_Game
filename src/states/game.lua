@@ -1,7 +1,6 @@
 Game = {}
 
 function Game:onActive()
-    
 end
 
 function Game:update(dt)
