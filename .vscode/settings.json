@@ -1,0 +1,18 @@
+{
+    "git.ignoreLimitWarning": true,
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.workspace.library": [
+        "${3rd}/love2d/library"
+    ],
+    "Lua.workspace.checkThirdParty": false,
+    "Lua.diagnostics.globals": [
+        "class_commons",
+        "common"
+    ],
+    "Lua.diagnostics.disable": [
+        "different-requires",
+        "undefined-global",
+        "lowercase-global"
+    ],
+    "Lua.completion.autoRequire": false
+}
