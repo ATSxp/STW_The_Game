@@ -3,9 +3,15 @@ function Init()
     rs = require("libs/resolution_solution")
     timer = require("libs/hump/timer")
 
-    local w, h = love.window.getMode()
-    SCREEN_W = w
-    SCREEN_H = h
+    SCALE = 4
+
+    SCREEN_W = 320
+    SCREEN_H = 480
+
+    ENTS = {}
+    PARTS = {}
+
+    WORLD_IS_PAUSED = false
 
     love.graphics.setDefaultFilter("nearest", "nearest", 0)
 

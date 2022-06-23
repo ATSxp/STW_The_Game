@@ -13,4 +13,13 @@ end
 
 function love.keypressed(key, scancode, isrepeat)
     stateManager:keypressed(key, scancode, isrepeat)
+
+    if key == "escape" then
+        love.event.quit()
+    end
+
+end
+
+function love.keyreleased(key, scancode)
+    stateManager:keyreleased(key, scancode)
 end
