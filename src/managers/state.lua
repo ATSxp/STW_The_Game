@@ -96,4 +96,18 @@ function stateManager:keyreleased(key, scancode)
     end
 
 end
+
+function stateManager:mousepressed(x, y, button, istouch, presses)
+    if self.states[self.curState].mousepressed then
+        self.states[self.curState]:mousepressed(x, y, button, istouch, presses)
+    end
+
+    for i, v in ipairs(self.overLayer)do
+        if v.mousepressed then
+            v:mousepressed(x, y, button, istouch, presses)
+        end
+
+    end
+    
+end
 return stateManager

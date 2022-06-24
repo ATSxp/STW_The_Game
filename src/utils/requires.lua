@@ -8,6 +8,7 @@ require("src/managers/anim")
 require("src/managers/sprite")
 require("src/managers/particles")
 require("src/managers/textbox")
+require("src/managers/bullet")
 require("src/managers/ents")
 
 -- Utils

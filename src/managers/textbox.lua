@@ -83,12 +83,12 @@ function Textbox:draw()
 
 end
 
-function Textbox:keypressed(key, scancode, isrepeat)
+function Textbox:mousepressed(x, y, button)
     if self.dialogues and self.dialogues[self.dialogueI] then
         local str = self.dialogues[self.dialogueI]
         local len = str:len()
 
-        if key == "z" and self.textI >= 2 then
+        if button == 1 and self.textI >= 2 then
             if self.textI < len then
                 self.textI = len
             else

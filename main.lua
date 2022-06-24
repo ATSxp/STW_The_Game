@@ -23,3 +23,10 @@ end
 function love.keyreleased(key, scancode)
     stateManager:keyreleased(key, scancode)
 end
+
+function love.mousepressed(x, y, button, istouch, presses)
+    love.mouse.setPosition(x, y)
+    local mx, my = rs.toGame(love.mouse.getPosition())
+    
+    stateManager:mousepressed(mx, my, button, istouch, presses)
+end

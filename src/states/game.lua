@@ -1,9 +1,10 @@
 Game = {}
 
 function Game:onActive()
-    love.mouse.setVisible(false)
+    -- love.mouse.setVisible(false)
     love.mouse.setPosition(player.x, player.y)
-    Textbox:add({"Bem vindo ao espaço"})
+    
+    Textbox:add({"Bem vindo ao espaço", "olaaaaaaaaa"})
 end
 
 function Game:update(dt)
