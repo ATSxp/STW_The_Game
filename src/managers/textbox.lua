@@ -1,7 +1,10 @@
 Textbox = {}
-Textbox.letterSpeed = 15
+Textbox.letterSpeed = 35
 Textbox.y = SCREEN_H / 2
+Textbox.readyToSKip = false
 local scale = 3
+
+local oldXPLayer, oldYPLayer
 
 function Textbox:add(text, data)
     self.dialogues = text or {}
@@ -9,10 +12,12 @@ function Textbox:add(text, data)
     self.dialogueI = 1
     self.textI = 1
 
+    oldXPLayer, oldYPLayer = player.x, player.y
+
     stateManager:push(self)
 end
 
-function Textbox:update(dt)    
+function Textbox:update(dt)
     if self.dialogues and self.dialogues[self.dialogueI] then
         local str = self.dialogues[self.dialogueI]
         local len = str:len()
@@ -27,11 +32,14 @@ function Textbox:update(dt)
 
         if self.textI < len then
             self.textI = self.textI + self.letterSpeed * dt
+            self.readyToSKip = false
+
+        elseif self.textI >= len then
+            self.readyToSKip = true
         end
 
     else
-        self:destroyBox()
-        
+        self:destroyBox() 
     end
 
 end
@@ -51,14 +59,25 @@ function Textbox:draw()
 
         -- love.graphics.setColor(1, 1, 1)
 
-        -- self:drawBox()
+        self:drawBox()
         -- self:drawData()
 
         love.graphics.print(
-            str:usub(1, self.textI), 
-           8 * scale, self.y - ((2 * scale) / 2) + 24, 
+            str:usub(1, math.clamp(0, self.textI, len)), 
+           8 * scale, self.y - ((2 * scale) / 2) + 32, 
            nil, scale, scale
         )
+
+        local font = love.graphics.getFont()
+
+        if self.readyToSKip then
+            love.graphics.print(
+                "Skip", 
+                SCREEN_W - (font:getWidth("Skip") * scale) - 16, SCREEN_H - 42, 
+                nil, scale, scale
+            )
+            
+        end
 
     end
 
@@ -84,6 +103,7 @@ function Textbox:keypressed(key, scancode, isrepeat)
 end
 
 function Textbox:destroyBox()
+    love.mouse.setPosition(oldXPLayer, oldYPLayer)
     WORLD_IS_PAUSED = false
     stateManager:pop()
 end
@@ -93,87 +113,11 @@ function Textbox:drawBox()
         return    
     end
 
-    local draw = love.graphics.draw
-    local size = 8 * scale
-
-    setColor(unpack(LIGHT_GREEN))
-    love.graphics.rectangle(
-        "fill", 
-        size, self.y + size, 
-        size * 18, size * 7
+    love.graphics.draw(
+        Images["textbox"], 
+        0, 258, nil, SCALE, SCALE
     )
-    love.graphics.setColor(1, 1, 1)
-
-    -- top left
-    draw(
-        gImages["textbox"], 
-        gQuads["textbox"][0], 
-        0, self.y, nil, scale, scale
-    )
-
-    -- bottom left
-    draw(
-        gImages["textbox"], 
-        gQuads["textbox"][6], 
-        0, self.y + (SCREEN_H / 2) - (size), nil, scale, scale
-    )
-
-    -- top right
-    draw(
-        gImages["textbox"], 
-        gQuads["textbox"][2], 
-        SCREEN_W - size, self.y, nil, scale, scale
-    )
-
-    -- bottom right
-    draw(
-        gImages["textbox"], 
-        gQuads["textbox"][8], 
-        SCREEN_W - size, self.y + (size * 8), nil, scale, scale
-    )
-
-    -- top
-    for i = 0, 17 do
-        draw(
-            gImages["textbox"], 
-            gQuads["textbox"][1], 
-            size * i + size, self.y, nil, 
-            scale, scale
-        )
-
-    end
     
-    -- bottom
-    for i = 0, 17 do
-        draw(
-            gImages["textbox"], 
-            gQuads["textbox"][7], 
-            (size) * i + (size), self.y + (SCREEN_H/ 2) - (size), nil, 
-            scale, scale
-        )
-
-    end
-    
-    -- left
-    for i = 0, 6 do
-        draw(
-            gImages["textbox"], 
-            gQuads["textbox"][3], 
-            0, (size) * i + self.y + size, nil, 
-            scale, scale
-        )
-    end
-    
-    -- right
-    for i = 0, 6 do
-        draw(
-            gImages["textbox"], 
-            gQuads["textbox"][5], 
-            SCREEN_W - size, (size) * i + self.y + (size), nil, 
-            scale, scale
-        )
-    end
-
 end
 
 function Textbox:drawData()

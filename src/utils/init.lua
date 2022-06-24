@@ -18,4 +18,5 @@ function Init()
     rs.setGame(SCREEN_W, SCREEN_H)
     
     require("src/utils/requires")
+
 end

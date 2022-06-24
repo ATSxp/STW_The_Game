@@ -28,7 +28,7 @@ function Sprite:new(anim)
         love.graphics.draw(
             gImages[anim.texture], 
             gQuads[anim.texture][anim.curFrame], 
-            e.x - e.w / 2, e.y - e.h / 2
+            e.x, e.y
         )
     end
     
